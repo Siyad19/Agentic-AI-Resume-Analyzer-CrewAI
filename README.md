@@ -163,16 +163,16 @@ Compares the resume with the analyzed job description and identifies:
                      ┌─────────────────────┘
                      │
                      ▼
-                              Keyword Gap Analyzer
-                                     │
-                                     ▼
-                            Resume ↔ Job Comparison
-                                     │
-                                     ▼
-                              Match Report
-                                     │
-                                     ▼
-                                Streamlit UI
+            Keyword Gap Analyzer
+                     │
+                     ▼
+             Resume ↔ Job Comparison
+                     │
+                     ▼
+                Match Report
+                     │
+                     ▼
+                Streamlit UI
 ```
 
 ---
@@ -390,6 +390,29 @@ Resume Recommendations:
 # Preview
 
 ### Version-1
+---
+![V1P1](preview/V1-prev1.png)
+---
+![V1P2](preview/V1-prev2.png)
+---
+![V1P3](preview/V1-prev3.png)
+---
 
-![V1P1](preview/Screenshot1.png)
-
+### Version-2
+---
+![V2P1](preview/V2-prev1.png)
+---
+![V2P2](preview/V2-prev2.png)
+---
+![V2P3](preview/V2-prev3.png)
+---
+![V2P4](preview/V2-prev4.png)
+---
+![V2P5](preview/V2-prev5.png)
+---
+![V2P6](preview/V2-prev6.png)
+---
+![V2P7](preview/V2-prev7.png)
+---
+![V2P8](preview/V2-prev8.png)
+---
