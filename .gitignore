@@ -8,8 +8,4 @@ report.md
 *.log
 .python-version
 uv.lock
-resumes/*
-!resumes/.gitkeep
-tests/*
-!tests/.gitkeep
 AGENTS.md
