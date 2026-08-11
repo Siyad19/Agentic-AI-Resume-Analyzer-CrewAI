@@ -1,0 +1,136 @@
+analyzer_task:
+  description: >
+    Analyze the resume PDF located at {resume_path}.
+
+    Step 1:
+    Use the pdf_resume_parser tool.
+
+    IMPORTANT:
+    Pass the exact value of {resume_path} to the tool's resume parameter.
+    The resume parameter must contain ONLY the PDF file path.
+    Do not pass extracted resume text to the tool.
+
+    Step 2:
+    Analyze the text returned by the PDF parser.
+
+    Step 3:
+    Extract:
+    - Skills
+    - Experience
+    - Education
+    - Projects
+    - Certifications
+
+    Step 4:
+    Infer the most suitable job role based on the candidate's
+    skills, experience, education, and projects.
+
+    Step 5:
+    Evaluate the resume and identify strengths, gaps, and ATS alignment.
+
+  expected_output: >
+    A structured JSON object containing:
+    - inferred_role
+    - confidence_score
+    - skills
+    - strengths
+    - gaps
+    - ats_score
+
+  agent: resume_analyzer
+
+advisor_task:
+  description: >
+     Use the inferred role from the previous task. Research current industry expectations for 
+     the {target_role} and provide personalized recommendations as per {current_year}.
+  expected_output: >
+    A detailed career development plan with actionable steps and recommendations.
+    Skills to learn, certifications, projects, and resume improvements as per industry standards in current hiring trends.
+    Formatted as markdown without '```'
+  agent: career_advisor
+
+job_description_task:
+  description: >
+    Analyze the provided {job_description} and extract the key information
+    required for comparing it with a candidate's resume.
+  expected_output: >
+    Identify and categorize:
+    1. Required technical skills
+    2. Preferred technical skills
+    3. Tools, frameworks, libraries, and technologies
+    4. Required qualifications and experience
+    5. Key job responsibilities
+    6. Domain-specific knowledge
+    7. Important keywords and phrases that are highly relevant to the role
+
+    Prioritize mandatory requirements over preferred requirements.
+    Do not invent information that is not explicitly or reasonably
+    implied by the job description.
+
+    Return the extracted information in a clear, structured format so
+    that it can be directly compared with the information extracted
+    from the candidate's resume.
+  agent: job_description_analyzer
+
+keyword_gap_task:
+  description: >
+     Compare the candidate's resume analysis with the extracted job
+     description requirements.
+
+     Analyze the two inputs and identify:
+
+     1. Skills and keywords that match between the resume and job description.
+     2. Required skills from the job description that are missing from
+        the resume.
+     3. Skills that are partially matched or represented by related
+        technologies or experience.
+     4. Important job-specific keywords that are not sufficiently
+        represented in the resume.
+     5. Areas where the candidate's experience strongly aligns with
+        the job responsibilities.
+     6. Significant skill or experience gaps.
+     7. Practical recommendations for improving the resume for this
+        specific job.
+
+     Prioritize missing requirements according to their importance in
+     the job description.
+
+     Do not assume that the candidate has a skill simply because it is
+     related to another skill in the resume. Distinguish clearly between
+     exact matches, related/partial matches, and genuinely missing skills.
+
+     Do not recommend adding a skill or experience to the resume unless
+     it is supported by the candidate's existing resume information.
+
+     Provide an overall assessment of how well the resume aligns with
+     the job description.
+  expected_output: >
+      A structured resume-to-job comparison report containing:
+
+      1. Overall Match Assessment
+        - Overall alignment percentage or rating
+        - Short explanation of the candidate's suitability
+
+      2. Matching Skills & Keywords
+        - Skills explicitly present in both the resume and job description
+
+      3. Partial / Related Matches
+        - Job requirements that are related to skills or experience
+          already present in the resume
+
+      4. Missing Skills & Keywords
+        - Important job requirements that are not found in the resume
+        - Clearly distinguish required and preferred missing skills
+
+      5. Key Skill Gaps
+        - The most significant gaps affecting the candidate's suitability
+
+      6. Resume Improvement Insights
+        - Specific and actionable recommendations for improving the
+          resume for this particular job
+
+      7. Final Summary
+        - Concise assessment of the candidate's strengths, weaknesses,
+          and overall fit for the role.
+  agent: keyword_gap_analyzer
+  context: [analyzer_task, job_description_task]
