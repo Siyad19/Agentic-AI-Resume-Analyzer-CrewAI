@@ -28,7 +28,8 @@ class ResumeAnalyzerAgent():
         self.llm = LLM(
         model="openrouter/meta-llama/llama-4-maverick",
         temperature=0.2,
-        api_key=os.getenv("OPENROUTER_API_KEY")
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        max_tokens=1500
     )
 
     @agent
@@ -61,7 +62,8 @@ class ResumeAnalyzerAgent():
     def keyword_gap_analyzer(self) -> Agent:
         return Agent(
             llm=self.llm,
-            config=self.agents_config['keyword_gap_analyzer'], # type: ignore[index]
+            config=self.agents_config['keyword_gap_analyzer'],
+            tools=[PDFParserTool()], # type: ignore[index]
             verbose=True
         )
 

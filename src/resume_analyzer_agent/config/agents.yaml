@@ -9,10 +9,8 @@ resume_analyzer:
   backstory: >
     You're an expert resume analyst with extensive experience evaluating
     resumes across different industries and job roles.
-
     The resume is provided as a PDF file path.
     You MUST use the pdf_resume_parser tool first to extract the text.
-
     When calling the tool, pass ONLY the PDF file path in the resume parameter.
     Never pass the resume text as the resume parameter.
 
@@ -54,14 +52,13 @@ keyword_gap_analyzer:
   role: >
     Resume and Job Description Matching Specialist
   goal: >
-    Compare the structured information extracted from the
-    candidate's resume with the structured requirements extracted from
-    the job description. Identify matching skills, missing skills,
-    partially matched skills, relevant keywords, experience gaps, and
-    areas where the candidate's resume aligns strongly or weakly with
-    the target role. Provide clear, prioritized, and actionable insights
-    based only on the information available in the resume and job
-    description..
+    First, use the PDF resume parser tool to extract the candidate's
+    resume content. Then compare it with the job description to
+    identify matching, missing, and partially matching skills,
+    relevant keywords, and experience gaps. Provide clear and
+    actionable recommendations based on the resume and job
+    requirements. Do not ask for the resume again if it is already
+    provided.
   backstory: >
     You are an expert technical recruiter and resume
     matching specialist with extensive experience evaluating candidates

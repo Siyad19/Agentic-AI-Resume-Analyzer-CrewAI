@@ -74,8 +74,10 @@ job_description_task:
 
 keyword_gap_task:
   description: >
-     Compare the candidate's resume analysis with the extracted job
-     description requirements.
+     Use the pdf_resume_parser tool to extract the resume content
+     from this file: {resume_path}.
+     Compare the extracted resume with this job description:
+     {job_description}
 
      Analyze the two inputs and identify:
 

@@ -8,20 +8,23 @@ load_dotenv()
 st.set_page_config(
     page_title="Resume Analyzer Agent",
     page_icon="📄",
+    layout="wide"
 )
 
 st.title("Resume Analyzer Agent")
 
 st.subheader("Resume Analysis")
-st.caption("Analyze your resume to identify key skills, experience, strengths, and career opportunities.")
+st.caption(
+    "Analyze your resume to identify key skills, experience, "
+    "strengths, and career opportunities."
+)
 
 uploaded_file = st.file_uploader(
-    "Upload your resume (PDF or DOCX Format)", 
-    type=["pdf","docx"]
+    "Upload your resume (PDF or DOCX Format)",
+    type=["pdf", "docx"]
 )
 
 if uploaded_file:
-
     os.makedirs("resumes", exist_ok=True)
 
     file_path = os.path.join("resumes", uploaded_file.name)
@@ -31,20 +34,22 @@ if uploaded_file:
 
     st.success(f"Resume uploaded: {uploaded_file.name}")
 
-    target_role =st.text_area(
+    target_role = st.text_area(
         "Enter your target role",
-        height=50, 
+        height=50,
         placeholder="e.g., Software Engineer, Data Scientist, Product Manager..."
     )
-        
+
     if st.button("Analyze Resume"):
-        with st.spinner("Analyzing resume..."):
-            # result = run(file_path, target_role)
-            result = analyze_resume(file_path, target_role)
-            
-        st.success("Resume analysis completed!")
-        st.subheader("🔍 Resume Analysis Insights")
-        st.write(result.raw)
+        if not target_role.strip():
+            st.error("Please enter your target role to analyze your resume.")
+        else:
+            with st.spinner("Analyzing resume..."):
+                result = analyze_resume(file_path, target_role)
+
+            st.success("Resume analysis completed!")
+            st.subheader("🔍 Resume Analysis Insights")
+            st.write(result.raw)    
 
     st.divider()
 
